@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block description %}
+    日々の生活をよりよくしたい、プログラミングやIT技術を身に着けたい、夢を叶えたい人へ。私monicaが様々な役立つ情報を発信していきます。
+{% endblock %}
+{% block title %}
+『{{ tags.name }}』のタグがついた投稿一覧
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <div class="new_article_outer">
+            <div class="sub_title">『{{ tags.name }}』のタグがついた投稿一覧</div>
+            <div class="new_article_inner">
+                {% include 'blog/post_list.html' %}
+            </div>
+            {% include 'blog/pagination.html' %}
+        </div>
+    {% include 'blog/sidebar.html' %}
+    </div>
+{% endblock %}

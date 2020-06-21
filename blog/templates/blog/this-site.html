@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block description %}
+    日々の生活をよりよくしたい、プログラミングやIT技術を身に着けたい、夢を叶えたい人へ。様々な役立つ情報を発信していきます。
+{% endblock %}
+{% block title %}
+    このサイトについて
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <div class="new_article_outer">
+            <div class="sub_title">このサイトについて</div>
+            <div class="new_article_inner">
+                {% for i in Site_description %}
+                <div class="thissite">{{ i.content|safe }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    {% include 'blog/sidebar.html' %}
+    </div>
+{% endblock %}

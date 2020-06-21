@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block description %}
+    {{ object.description }}
+{% endblock %}
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'toc.min.js' %}"></script>
+    <script src="{% static 'jquery.share-buttons.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script>
+         $(function(){
+          $("#share").shareButtons({
+           buttons: ['twitter', 'facebook', 'line', 'hatena', 'pocket'], // 「表示するボタン」
+           shape: 'ios', // 「デザイン」 'flat', 'ios' or 'circle',
+           size: '50px', // 「ボタンサイズ」
+           margin: '3px', // 「ボタン周りのマージン」
+           color: '#ffffff', // 「色（アイコン）」 'brand' or any color
+           backgroundColor: 'brand', // 「色（背景）」 'brand' or any color
+          });
+         });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <div class="sidebar_content2">
+            <div id="toc"></div>
+            <div id="share"></div>
+        </div>
+        <div class="wrapper">
+            <a class="category_post_display" href="/"><img style="width: 13px; height: 13px;" src="{% static 'images/home.png' %}">トップ＞</a>
+            <a class="category_post_display" href="/category/{{ object.category.slug }}/">{{ object.category }}＞</a>
+            {% for tags in object.tags.all %}
+            <a class="tag_post_display" href="/tag/{{ tags.slug }}"><img style="width: 13px; height: 13px;" src="{% static 'images/tag.png' %}">{{ tags }}</a>
+            {% endfor %}
+            <div class="post_title">
+                <h1>{{ object.title }}</h1>
+                <div class="meta_box">
+                    <p class="date_box">{{ object.published_at }}</p>
+                    <div class="author_box">
+                        <img class="icon" src="/media/{{ object.author.icon }}">
+                        <p class="author_name">{{ object.author.name }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <img class="post_thumbnail" src="/media/{{ object.thumbnail }}" alt="{{ post.title }}">
+            <p>{{ object.description }}</p>
+            <div class="article_main">{{ object.content|safe }}</div>
+        </div>
+    {% include 'blog/sidebar.html' %}
+    </div>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+    jQuery('#toc').toc({
+        'prefix': 'toc', //アンカータグとクラス名のプレフィックス
+        'container': 'div.article_main', /* 見出しを取得するエリア */
+        'selectors': 'h1, h2, h3', /* 取得する見出しレベル */
+        'anchorName': function(i, heading, prefix) { //アンカーネームのカスタマイズ
+        return prefix+i;
+        },
+    });
+    </script>
+{% endblock %}

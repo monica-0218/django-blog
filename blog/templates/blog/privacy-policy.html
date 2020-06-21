@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block description %}
+    日々の生活をよりよくしたい、プログラミングやIT技術を身に着けたい、夢を叶えたい人へ。様々な役立つ情報を発信していきます。
+{% endblock %}
+{% block title %}
+    プライバシーポリシー
+{% endblock %}
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'toc.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <div class="sidebar_content2">
+            <div id="toc"></div>
+        </div>
+        <div class="new_article_outer">
+            <div class="sub_title">プライバシーポリシー</div>
+            <div class="new_article_inner">
+                {% for i in PrivacyPolicy %}
+                <div class="thissite">{{ i.content|safe }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    {% include 'blog/sidebar.html' %}
+    </div>
+    <script>
+    jQuery('#toc').toc({
+        'prefix': 'toc', //アンカータグとクラス名のプレフィックス
+        'container': 'div.thissite', /* 見出しを取得するエリア */
+        'selectors': 'h1, h2, h3', /* 取得する見出しレベル */
+        'anchorName': function(i, heading, prefix) { //アンカーネームのカスタマイズ
+        return prefix+i;
+        },
+    });
+    </script>
+{% endblock %}

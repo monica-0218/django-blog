@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block description %}
+    日々の生活をよりよくしたい、プログラミングやIT技術を身に着けたい、夢を叶えたい人へ。私monicaが様々な役立つ情報を発信していきます。
+{% endblock %}
+{% block title %}
+    記者紹介
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <div class="new_article_outer">
+            <div class="sub_title">記者紹介</div>
+            {% for author in object_list %}
+                <div class="author_description_outer">
+                    <img class="author_description_icon" src="{{ author.icon.url }}">
+                    <div class="author_description_inner">
+                        <h3 class="author_description_name" style="font-family: 'Krona One', sans-serif;">{{ author.name }}</h3>
+                        <p class="author_description_text">{{ author.description }}</p>
+                        <a href="https://twitter.com/{{ author.TwitterID }}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @{{ author.TwitterID }}</a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+            {% include 'blog/pagination.html' %}
+        </div>
+    {% include 'blog/sidebar.html' %}
+    </div>
+{% endblock %}

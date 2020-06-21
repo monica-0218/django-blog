@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main">
+    <div class="new_article_outer">
+        <div class="sub_title">「{% if query %}{{ query }}{% endif %}」の検索結果</div>
+        <p style="text-align: right">{{ page_obj.start_index }}-{{ page_obj.end_index }}件（{{ paginator.count }}件）</p>
+        <div class="new_article_inner">
+            {% include 'blog/post_list.html' %}
+        </div>
+    {% include 'blog/pagination.html' %}
+    </div>
+{% include 'blog/sidebar.html' %}
+</div>
+{% endblock %}

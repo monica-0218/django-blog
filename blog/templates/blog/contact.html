@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block description %}
+    日々の生活をよりよくしたい、プログラミングやIT技術を身に着けたい、夢を叶えたい人へ。様々な役立つ情報を発信していきます。
+{% endblock %}
+{% block title %}
+    お問い合わせ・アクセス
+{% endblock %}
+{%  block content %}
+    <div class="main">
+        <div class="new_article_outer">
+            <div class="sub_title">お問い合わせ・アクセス</div>
+            <div class="new_article_inner">
+                <a class="twitter-timeline" data-lang="ja" data-width="50%" data-height="500" data-theme="light" href="https://twitter.com/monica18_pr?ref_src=twsrc%5Etfw">Tweets by monica18_pr</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="contact_description">
+                    <h3>ご連絡先</h3>
+                    <p>仕事のご依頼、記事内容のお問い合わせは左にあるサイト製作者のTwitterの@メンションまたはダイレクトメッセージを使用ください。</p>
+                    <a href="https://twitter.com/intent/tweet?screen_name=monica18_pr&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-lang="ja" data-show-count="false">Tweet to @monica18_pr</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </div>
+        </div>
+    {% include 'blog/sidebar.html' %}
+    </div>
+{% endblock %}

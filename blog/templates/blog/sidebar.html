@@ -1,0 +1,45 @@
+<div class="sidebar_content">
+    <div id="search">
+        <form class="searchform" action="{% url 'blog:search_post' %}" method="GET">
+          <input type="search" name="q" value="{{ request.GET.q }}" placeholder="検索" aria-label="Search">
+          <button class="searchsubmit" type="submit"></button>
+        </form>
+    </div>
+    <div id="pages-2" class="widget">
+        <div class="widget_title">インフォメーション</div>
+        <ul>
+            <li class="page_item">
+                <a href="/author/">運営メンバーリスト</a>
+            </li>
+            <li class="page_item">
+                <a href="/contact/">お問い合わせ・アクセス</a>
+            </li>
+            <li class="page_item">
+                <a href="/this-site/">このサイトについて</a>
+            </li>
+            <li class="page_item">
+                <a href="/privacy-policy/">プライバシーポリシー</a>
+            </li>
+        </ul>
+    </div>
+    <div id="pages-2" class="widget">
+        <div class="widget_title">カテゴリー</div>
+        <ul>
+            {% for category in Category_list %}
+            <li class="page_item">
+                <a href="/category/{{ category.slug }}/">{{ category.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="pages-2" class="widget">
+        <div class="widget_title">タグ</div>
+        <ul>
+            {% for tag in Tag_list %}
+            <li class="page_item">
+                <a href="/tag/{{ tag.slug }}/">{{ tag.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
