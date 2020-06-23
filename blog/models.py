@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from markdown import markdown
+from markdownx.models import MarkdownxField
 from django.core.validators import MinValueValidator
 
 
@@ -57,11 +58,15 @@ class Post(models.Model):
     title = models.CharField('タイトル', max_length=255)
     author = models.ForeignKey(Author, on_delete=models.PROTECT, blank=False)
     description = models.CharField('headタグでの説明', max_length=255, blank=False)
-    content = models.TextField('本文')
+    content = MarkdownxField('本文')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField('公開日', blank=False, null=True)
     is_public = models.BooleanField('公開する', default=False)
+
+    def get_markdown_text_as_html(self):
+        """MarkDown記法で書かれたtextをHTML形式に変換して返す"""
+        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc'])
 
     class Meta:
         ordering = ['-created_at']
@@ -78,16 +83,24 @@ class Post(models.Model):
 
 
 class Site(models.Model):
-    content = models.TextField('本文', help_text='サイトの説明を書いてください。また、このモデルは追加をしても意味がないのでご了承ください。')
+    content = MarkdownxField('本文', help_text='サイトの説明を書いてください。また、このモデルは追加をしても意味がないのでご了承ください。')
 
     class Meta:
         verbose_name = 'サイトの説明'
         verbose_name_plural = 'サイトの説明'
 
+    def get_markdown_text_as_html(self):
+        """MarkDown記法で書かれたtextをHTML形式に変換して返す"""
+        return markdown(self.contentext, ensions=['fenced_code', 'attr_list', 'toc'])
+
 
 class PrivacyPolicy(models.Model):
-    content = models.TextField('本文', help_text='プライバシーポリシーを書いてください。また、このモデルは追加をしても意味がないのでご了承ください。')
+    content = MarkdownxField('本文', help_text='プライバシーポリシーを書いてください。また、このモデルは追加をしても意味がないのでご了承ください。')
 
     class Meta:
         verbose_name = 'プライバシーポリシー'
         verbose_name_plural = 'プライバシーポリシー'
+
+    def get_markdown_text_as_html(self):
+        """MarkDown記法で書かれたtextをHTML形式に変換して返す"""
+        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc'])

@@ -11,7 +11,7 @@
             <div class="sub_title">このサイトについて</div>
             <div class="new_article_inner">
                 {% for i in Site_description %}
-                <div class="thissite">{{ i.content|safe }}</div>
+                <div class="thissite">{{ i.get_markdown_text_as_html|safe }}</div>
                 {% endfor %}
             </div>
         </div>

@@ -10,13 +10,14 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{% static 'toc.min.js' %}"></script>
     <script src="{% static 'jquery.share-buttons.js' %}"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
     <script>
          $(function(){
           $("#share").shareButtons({
            buttons: ['twitter', 'facebook', 'line', 'hatena', 'pocket'], // 「表示するボタン」
            shape: 'ios', // 「デザイン」 'flat', 'ios' or 'circle',
-           size: '50px', // 「ボタンサイズ」
+           size: '100px', // 「ボタンサイズ」
            margin: '3px', // 「ボタン周りのマージン」
            color: '#ffffff', // 「色（アイコン）」 'brand' or any color
            backgroundColor: 'brand', // 「色（背景）」 'brand' or any color
@@ -27,6 +28,7 @@
 {% block content %}
     <div class="main">
         <div class="sidebar_content2">
+            <h2>目次</h2>
             <div id="toc"></div>
             <div id="share"></div>
         </div>
@@ -42,14 +44,14 @@
                     <p class="date_box">{{ object.published_at }}</p>
                     <div class="author_box">
                         <img class="icon" src="/media/{{ object.author.icon }}">
-                        <p class="author_name">{{ object.author.name }}</p>
+                        <p class="author_name">{{ object.author.name }}</p></a>
                     </div>
                 </div>
             </div>
             <hr>
             <img class="post_thumbnail" src="/media/{{ object.thumbnail }}" alt="{{ post.title }}">
-            <p>{{ object.description }}</p>
-            <div class="article_main">{{ object.content|safe }}</div>
+            <hr>
+            <div class="article_main">{{ object.get_markdown_text_as_html|safe }}</div>
         </div>
     {% include 'blog/sidebar.html' %}
     </div>

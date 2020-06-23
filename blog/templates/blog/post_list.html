@@ -1,18 +1,20 @@
 {% for post in object_list %}
 {% if user.is_authenticated or post.is_public %}
 <a href="/post/{{ post.id }}/" class="new_article_contents">
-    <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}">
-    <div class="new_article_title">
-        {% if not post.is_public %}
-            <span style="font-size: 20px; color: crimson;">＜未公開＞</span>
-        {% endif %}
-        {{ post.title }}
-    </div>
-    <div class="author_box_post_list">
-        <img class="icon" src="{{ post.author.icon.url }}">
-        <p class="author_name">
-            {{ post.author.name }}
-        </p>
+    <img class="thumbnail" src="{{ post.thumbnail.url }}" alt="{{ post.title }}">
+    <div>
+        <div class="new_article_title">
+            {% if not post.is_public %}
+                <span style="font-size: 20px; color: crimson;">＜未公開＞</span>
+            {% endif %}
+            {{ post.title }}
+        </div>
+        <div class="author_box_post_list">
+            <img class="icon" src="{{ post.author.icon.url }}">
+            <p class="author_name">
+                {{ post.author.name }}
+            </p>
+        </div>
     </div>
     <p class="published_at">{{ post.published_at }}</p>
 </a>

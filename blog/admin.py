@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from markdownx.admin import MarkdownxModelAdmin
+from django.forms import TextInput, Textarea
+from django.db import models
 from .models import (
     Category,
     Tag,
@@ -8,10 +11,9 @@ from .models import (
     Site,
     PrivacyPolicy,
 )
-from django_summernote.admin import SummernoteModelAdmin
 
 
-class PostAdmin(SummernoteModelAdmin):
+class PostAdmin(MarkdownxModelAdmin):
     list_display = ('title', 'thumbnail_preview', 'created_at', 'category', 'is_public')
     list_filter = ('is_public',)
     ordering = ('-created_at',)
@@ -21,7 +23,6 @@ class PostAdmin(SummernoteModelAdmin):
         return mark_safe('<img src="{}" style="width:100px; height:auto;">'.format(obj.thumbnail.url))
 
     thumbnail_preview.short_description = 'サムネ'
-    summernote_fields = '__all__'
 
 
 class AuthorAdmin(admin.ModelAdmin):
@@ -31,17 +32,9 @@ class AuthorAdmin(admin.ModelAdmin):
         return mark_safe('<img src="{}" style="width:100px; height:auto;">'.format(obj.icon.url))
 
 
-class SiteAdmin(SummernoteModelAdmin):
-    pass
-
-
-class PrivacyPolicyAdmin(SummernoteModelAdmin):
-    pass
-
-
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Author, AuthorAdmin)
-admin.site.register(Site, SiteAdmin)
-admin.site.register(PrivacyPolicy, PrivacyPolicyAdmin)
+admin.site.register(Site)
+admin.site.register(PrivacyPolicy)
