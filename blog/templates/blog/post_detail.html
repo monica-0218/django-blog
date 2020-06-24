@@ -71,18 +71,23 @@
             <span id="phone_sidebar2"></span>
             <hr>
             <div class="article_main">{{ object.get_markdown_text_as_html|safe }}</div>
-              {% with prev=get_previous_by_pk %}
+            <div class="to_next_page">
+                {% with prev=get_previous_by_pk %}
                 {% if prev %}
-                  <a href="{% url 'blog:post_detail' prev.pk %}">前の記事</a>
+
+                    <a href="{% url 'blog:post_detail' prev.pk %}"class="btn-sticky"><h2 style="margin: 0">前の記事へ</h2><p class="btn-sticky-text">＜{{ prev.title }}</p></a>
                 {% endif %}
               {% endwith %}
 
 
               {% with next=get_next_by_pk %}
                 {% if next %}
-                  <a href="{% url 'blog:post_detail' next.pk %}">次の記事</a>
+                  <a href="{% url 'blog:post_detail' next.pk %}" class="btn-sticky"><h2 style="margin: 0">次の記事へ</h2>
+                    <p class="btn-sticky-text">{{ next.title }}＞</p>
+                  </a>
                 {% endif %}
               {% endwith %}
+            </div>
             <div class="new_article_outer">
                 <div class="sub_title">おすすめ記事</div>
                 <div class="new_article_inner">
