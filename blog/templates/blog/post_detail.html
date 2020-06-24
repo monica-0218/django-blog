@@ -7,6 +7,12 @@
     {{ object.title }}
 {% endblock %}
 {% block head %}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@{{ object.author.TwitterID }}" />
+    <meta property="og:url" content="http://127.0.0.1:8000/post/{{ object.id }}/" />
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:description" content="{{ object.description }}" />
+    <meta property="og:image" content="{{ object.thumbnail }}" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{% static 'toc.min.js' %}"></script>
     <script src="{% static 'jquery.share-buttons.js' %}"></script>
@@ -17,20 +23,31 @@
           $("#share").shareButtons({
            buttons: ['twitter', 'facebook', 'line', 'hatena', 'pocket'], // 「表示するボタン」
            shape: 'ios', // 「デザイン」 'flat', 'ios' or 'circle',
-           size: '100px', // 「ボタンサイズ」
+           size: '125px', // 「ボタンサイズ」
            margin: '3px', // 「ボタン周りのマージン」
            color: '#ffffff', // 「色（アイコン）」 'brand' or any color
            backgroundColor: 'brand', // 「色（背景）」 'brand' or any color
           });
          });
     </script>
+    <script>
+        $(window).on('load resize', function(){
+            var winW = $(window).width();
+            var devW = 1000;
+            if (winW <= devW) {
+                $('div.sidebar_content2').insertAfter('span#phone_sidebar2');
+            } else {
+                $('div.sidebar_content2').insertAfter('span#pc_sidebar2');
+            }
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <div class="main">
+        <span id="pc_sidebar2"></span>
         <div class="sidebar_content2">
-            <h2>目次</h2>
+            <h2 class="sidebar_content2_title">目次</h2>
             <div id="toc"></div>
-            <div id="share"></div>
         </div>
         <div class="wrapper">
             <a class="category_post_display" href="/"><img class="image_icon" src="{% static 'images/home.png' %}">トップ＞</a>
@@ -40,6 +57,7 @@
             {% endfor %}
             <div class="post_title">
                 <h1>{{ object.title }}</h1>
+                <div style="text-align: center" id="share"></div>
                 <div class="meta_box">
                     <p class="date_box">{{ object.published_at }}</p>
                     <div class="author_box">
@@ -50,8 +68,50 @@
             </div>
             <hr>
             <img class="post_thumbnail" src="/media/{{ object.thumbnail }}" alt="{{ post.title }}">
+            <span id="phone_sidebar2"></span>
             <hr>
             <div class="article_main">{{ object.get_markdown_text_as_html|safe }}</div>
+              {% with prev=get_previous_by_pk %}
+                {% if prev %}
+                  <a href="{% url 'blog:post_detail' prev.pk %}">前の記事</a>
+                {% endif %}
+              {% endwith %}
+
+
+              {% with next=get_next_by_pk %}
+                {% if next %}
+                  <a href="{% url 'blog:post_detail' next.pk %}">次の記事</a>
+                {% endif %}
+              {% endwith %}
+            <div class="new_article_outer">
+                <div class="sub_title">おすすめ記事</div>
+                <div class="new_article_inner">
+                    {% for post in Post_list|slice:":6" %}
+                    {% if user.is_authenticated or post.is_public %}
+                    <a href="/post/{{ post.id }}/" class="new_article_contents">
+                        <img class="thumbnail" src="{{ post.thumbnail.url }}" alt="{{ post.title }}">
+                        <div>
+                            <div class="new_article_title">
+                                {% if not post.is_public %}
+                                    <span style="font-size: 20px; color: crimson;">＜未公開＞</span>
+                                {% endif %}
+                                {{ post.title }}
+                            </div>
+                            <div class="author_box_post_list">
+                                <img class="icon" src="{{ post.author.icon.url }}">
+                                <p class="author_name">
+                                    {{ post.author.name }}
+                                </p>
+                            </div>
+                        </div>
+                        <p class="published_at">{{ post.published_at }}</p>
+                    </a>
+                    {% endif %}
+                    {% empty %}
+                    <p style="text-align: center;width: 100%">まだ投稿がありません‍</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     {% include 'blog/sidebar.html' %}
     </div>
@@ -60,7 +120,7 @@
     jQuery('#toc').toc({
         'prefix': 'toc', //アンカータグとクラス名のプレフィックス
         'container': 'div.article_main', /* 見出しを取得するエリア */
-        'selectors': 'h1, h2, h3', /* 取得する見出しレベル */
+        'selectors': 'h1, h2', /* 取得する見出しレベル */
         'anchorName': function(i, heading, prefix) { //アンカーネームのカスタマイズ
         return prefix+i;
         },

@@ -13,15 +13,15 @@ header h1 {
 header {
     margin-bottom: 10px;
 }
-h2{
-    margin-top: 0;
-    background: #ddd;
-    padding: 10px 20px;
+.article_main h1 {
+    background-color: #dddddd;
     border-bottom: 5px #00bbdd solid;
+    padding: 0 10px;
 }
-.article_main h3 {
-    background: #ddd;
+.article_main h2 {
+    border-bottom: double 5px #FFC778;
     padding: 10px;
+    margin: 0.83em 0.4em;
 }
 .image_icon {
     width: 13px;
@@ -46,7 +46,7 @@ p {
     justify-content: space-between;
 }
 .wrapper {
-    width: 54%;
+    width: 100%;
     padding: 2%;
     background-color: white;
 }
@@ -105,6 +105,21 @@ p {
     position: sticky;
     top: 11%;
     background-color: white;
+}
+.sidebar_content2_title {
+  position: relative;
+  color: white;
+  background: #004363;
+  line-height: 1.4;
+  padding: 0.5em 0.5em 0.5em 1.8em;margin: 0;
+}
+
+.sidebar_content2_title:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f14a";
+  font-weight: 900;
+  position: absolute;
+  left : 0.5em; /*左端からのアイコンまでの距離*/
 }
 pre > div {
     padding: 3%;
@@ -352,7 +367,6 @@ code {
     .wrapper {
         width: 96%;
         padding: 2%;
-        margin-bottom: 100px;
     }
     .sub_title{
         font-size: 1em;
@@ -388,11 +402,10 @@ code {
         height: 500px;
     }
     .sidebar_content2 {
-        margin: 20px;
         position: relative;
     }
     #toc .toc-h2:hover,
-    #toc .toc-h3:hover {
+    #toc .toc-h1:hover {
         background-color: rgba(112,112,112,0.5);
         border-radius: 5px;
     }
@@ -429,14 +442,23 @@ code {
     .main {
         padding: 0 1%;
     }
+    th, td {
+        font-size: 30px;
+    }
+    .sidebar_content {
+        margin: 0;
+    }
 }
 #toc ul {
     list-style: none;
 }
 #toc li.toc-h3 {
-    padding: 0 2em;
+    padding: 0 3em;
 }
 #toc li.toc-h2 {
+    padding: 0 2em;
+}
+#toc li.toc-h1 {
     padding: 0 1em;
 }
 #toc a {
@@ -449,6 +471,11 @@ code {
     margin-bottom: 3px;
 }
 #toc li.toc-h2 a::before {
+    content: "▶";
+    margin-right: .2em;
+}
+#toc li.toc-h1 a::before {
+    content: "■︎";
     margin-right: .2em;
 }
 #toc li.toc-h3 a {
@@ -463,7 +490,55 @@ code {
     padding: 0;
 }
 #toc .toc-h2:hover,
-#toc .toc-h3:hover {
+#toc .toc-h1:hover {
     background-color: rgba(112,112,112,0.5);
     border-radius: 5px;
+}
+table{
+  width: 100%;
+  border-collapse:separate;
+  border-spacing: 0;
+}
+
+table th:first-child{
+  border-radius: 5px 0 0 0;
+}
+
+table th:last-child{
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #3c6690;
+}
+
+table th{
+  text-align: center;
+  color:white;
+  background: linear-gradient(#88c66d, #8ad5b0);
+  border-left: 1px solid #a8b7c5;
+  border-top: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+  width: 25%;
+  padding: 10px 0;
+}
+
+table td{
+  text-align: center;
+  border-left: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  border-top:none;
+  box-shadow: 0px -3px 5px 1px #eee inset;
+  width: 25%;
+  padding: 10px 0;
+}
+
+table td:last-child{
+  border-right: 1px solid #a8b7c5;
+}
+
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+table tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
 }

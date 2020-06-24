@@ -13,13 +13,14 @@
 {% block content %}
     <div class="main">
         <div class="sidebar_content2">
+            <h2 class="sidebar_content2_title">目次</h2>
             <div id="toc"></div>
         </div>
         <div class="new_article_outer">
             <div class="sub_title">プライバシーポリシー</div>
             <div class="new_article_inner">
                 {% for i in PrivacyPolicy %}
-                <div class="thissite">{{ i..get_markdown_text_as_html|safe }}</div>
+                <div class="thissite">{{ i.get_markdown_text_as_html|safe }}</div>
                 {% endfor %}
             </div>
         </div>
@@ -29,7 +30,7 @@
     jQuery('#toc').toc({
         'prefix': 'toc', //アンカータグとクラス名のプレフィックス
         'container': 'div.thissite', /* 見出しを取得するエリア */
-        'selectors': 'h1, h2, h3', /* 取得する見出しレベル */
+        'selectors': 'h1, h2', /* 取得する見出しレベル */
         'anchorName': function(i, heading, prefix) { //アンカーネームのカスタマイズ
         return prefix+i;
         },

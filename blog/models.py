@@ -66,7 +66,7 @@ class Post(models.Model):
 
     def get_markdown_text_as_html(self):
         """MarkDown記法で書かれたtextをHTML形式に変換して返す"""
-        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc'])
+        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc', 'tables'])
 
     class Meta:
         ordering = ['-created_at']
@@ -91,7 +91,7 @@ class Site(models.Model):
 
     def get_markdown_text_as_html(self):
         """MarkDown記法で書かれたtextをHTML形式に変換して返す"""
-        return markdown(self.contentext, ensions=['fenced_code', 'attr_list', 'toc'])
+        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc', 'tables'])
 
 
 class PrivacyPolicy(models.Model):
@@ -103,4 +103,4 @@ class PrivacyPolicy(models.Model):
 
     def get_markdown_text_as_html(self):
         """MarkDown記法で書かれたtextをHTML形式に変換して返す"""
-        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc'])
+        return markdown(self.content, extensions=['fenced_code', 'attr_list', 'toc', 'tables'])

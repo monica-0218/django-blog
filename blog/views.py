@@ -32,6 +32,9 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['get_previous_by_pk'] = Post.objects.filter(pk__lt=self.kwargs['pk']).order_by('pk').last()
+        context['get_next_by_pk'] = Post.objects.filter(pk__gt=self.kwargs['pk']).order_by('pk').first()
+        context['Post_list'] = Post.objects.all()
         context['Category_list'] = Category.objects.all()
         context['Tag_list'] = Tag.objects.all()
         return context
