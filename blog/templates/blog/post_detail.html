@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{% static 'toc.min.js' %}"></script>
     <script src="{% static 'jquery.share-buttons.js' %}"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/monokai-sublime.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
     <script>
          $(function(){
@@ -57,7 +57,6 @@
             {% endfor %}
             <div class="post_title">
                 <h1>{{ object.title }}</h1>
-                <div style="text-align: center" id="share"></div>
                 <div class="meta_box">
                     <p class="date_box">{{ object.published_at }}</p>
                     <div class="author_box">
@@ -68,6 +67,7 @@
             </div>
             <hr>
             <img class="post_thumbnail" src="/media/{{ object.thumbnail }}" alt="{{ post.title }}">
+            <div style="text-align: center" id="share"></div>
             <span id="phone_sidebar2"></span>
             <hr>
             <div class="article_main">{{ object.get_markdown_text_as_html|safe }}</div>

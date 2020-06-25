@@ -2,6 +2,7 @@
 {% if user.is_authenticated or post.is_public %}
 <a href="/post/{{ post.id }}/" class="new_article_contents">
     <img class="thumbnail" src="{{ post.thumbnail.url }}" alt="{{ post.title }}">
+    <div class="post_list_category">{{ post.category }}</div>
     <div>
         <div class="new_article_title">
             {% if not post.is_public %}
