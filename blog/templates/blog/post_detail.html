@@ -125,7 +125,7 @@
     jQuery('#toc').toc({
         'prefix': 'toc', //アンカータグとクラス名のプレフィックス
         'container': 'div.article_main', /* 見出しを取得するエリア */
-        'selectors': 'h1, h2', /* 取得する見出しレベル */
+        'selectors': 'h2, h3', /* 取得する見出しレベル */
         'anchorName': function(i, heading, prefix) { //アンカーネームのカスタマイズ
         return prefix+i;
         },

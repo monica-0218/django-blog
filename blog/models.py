@@ -55,7 +55,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
     thumbnail = models.ImageField('サムネ', upload_to='images/')
-    title = models.CharField('タイトル', max_length=255)
+    title = models.CharField('タイトル', max_length=75)
     author = models.ForeignKey(Author, on_delete=models.PROTECT, blank=False)
     description = models.CharField('headタグでの説明', max_length=255, blank=False)
     content = MarkdownxField('本文')
